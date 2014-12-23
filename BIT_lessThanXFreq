@@ -1,0 +1,17 @@
+long long int tree[1000001];
+
+long long int read(int idx){ // read(x) returns number of elements less than equal x
+ long long int sum = 0;
+ while (idx > 0){
+  sum += tree[idx];
+  idx -= (idx & -idx);
+ }
+ return sum;
+}
+
+void update(int idx ,long long int val){ // update(x,1) updates the freq of x by 1
+ while (idx <= 1000001){
+  tree[idx] += val;
+  idx += (idx & -idx);
+ }
+}
