@@ -1,0 +1,22 @@
+int getFirstIndexLargerThanEqualNum(int l,int r,int num)
+{
+    while(l<r)
+    {
+        int mid = (l+r)/2;
+        if(a[mid] < num)
+        {
+            l = mid+1;
+        }
+        else
+        {
+            r = mid;
+        }
+    }
+    if(a[l]<num)
+    {
+        return -1;
+    }
+    return l;
+    
+    
+}
