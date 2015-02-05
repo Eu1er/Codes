@@ -1,0 +1,40 @@
+int ed(string X, string Y)
+{
+    
+    int cost = 0;
+    int leftCell, topCell, cornerCell;
+ 
+    int m = X.length();
+    int n = Y.length();
+ 
+    for(int i = 0; i <=m; i++)
+        for(int j = 0; j <=n; j++)
+            T[i][j] = -1;
+ 
+
+    for(int i = 0; i <=m; i++)
+        T[i][0] = i;
+ 
+    // T[0][j] = j
+    for(int j = 0; j <=n; j++)
+        T[0][j] = j;
+ 
+    // Build the T in top-down fashion
+    for(int i = 1; i <=m; i++)
+    {
+        for(int j = 1; j <=n; j++)
+        {
+
+            leftCell = T[i][j-1];
+            leftCell += EDIT_COST;
+            topCell = T[i-1][j];
+            topCell += EDIT_COST;
+            cornerCell = T[i-1][j-1];
+            cornerCell += (X[i-1] != Y[j-1]); 
+            T[i][j] = min(leftCell, min(topCell, cornerCell));
+        }
+    }
+ 
+    cost = T[m][n];
+    return cost;
+}
