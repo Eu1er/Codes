@@ -1,0 +1,48 @@
+/* This function detects and removes loop in the list
+  If loop was there in the list then it returns 1,
+  otherwise returns 0 */
+int detectAndRemoveLoop(struct node *list)
+{
+    struct node  *slow_p = list, *fast_p = list;
+ 
+    while (slow_p && fast_p && fast_p->next)
+    {
+        slow_p = slow_p->next;
+        fast_p  = fast_p->next->next;
+ 
+        /* If slow_p and fast_p meet at some point then there
+           is a loop */
+        if (slow_p == fast_p)
+        {
+            removeLoop(slow_p, list);
+ 
+            /* Return 1 to indicate that loop is found */
+            return 1;
+        }
+    }
+ 
+    /* Return 0 to indeciate that ther is no loop*/
+    return 0;
+}
+ 
+/* Function to remove loop.
+ loop_node --> Pointer to one of the loop nodes
+ head -->  Pointer to the start node of the linked list */
+void removeLoop(struct node *loop_node, struct node *head)
+{
+    if(head == loop_node)// In case of a circular linked list
+    {
+        while(loop_node->next != head)
+        {
+            loop_node = loop_node->next;
+        }
+        loop_node->next = NULL;
+        return;
+    }
+    while(loop_node->next != head->next)
+    {
+        loop_node = loop_node->next;
+        head = head->next;
+    }
+    loop_node->next = NULL;
+}
